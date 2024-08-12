@@ -12,6 +12,7 @@ function validateRegistrationData(formData) {
         errors.push("Last Name is required");
     }
     if (!formData.birthday) {
+        console.log("Birthday field is empty:", formData.birthday);
         errors.push("Birthday is required");
     } else {
         const age = new Date().getFullYear() - new Date(formData.birthday).getFullYear();

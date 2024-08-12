@@ -1,6 +1,7 @@
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
+import Profile from './components/Profile';
 import 'process/browser';
 
 import {
@@ -19,6 +20,7 @@ function App() {
                 <Route  path="/" element={<Login />} />
                 <Route  path="/Register" element={<Register />} />
                 <Route  path='/Dashboard' element={<Dashboard />} />
+                <Route  path='/Profile' element={<Profile />} />
             </Routes>
         </Router>
     </>

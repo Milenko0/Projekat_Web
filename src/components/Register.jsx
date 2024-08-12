@@ -188,7 +188,7 @@ const onFailure = (res) => {
       <hr />
       <GoogleLogin
       clientId={clientId}
-      buttonText="Register with Google"
+      buttonText="Sign in with Google"
         onSuccess={onSuccess}
         onFailure={onFailure}
     />
