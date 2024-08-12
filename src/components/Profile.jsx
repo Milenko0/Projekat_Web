@@ -15,6 +15,7 @@ export default function Profile({ user }) {
     userType: user.userType || '',
     profilePicture: null,
   });*/
+  
   const defaultFormData = {
     username: user?.username || 'N/A',
     email: user?.email || 'N/A',

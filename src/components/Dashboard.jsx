@@ -9,6 +9,7 @@ import NewRides from './NewRides.jsx';
 import MyRides from './MyRides.jsx';
 import AllRides from './AllRides.jsx';*/
 
+
 export default function Dashboard() {
   const location = useLocation();
   const user = location.state?.user;
