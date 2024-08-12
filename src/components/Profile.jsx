@@ -16,6 +16,7 @@ export default function Profile({ user }) {
     profilePicture: null,
   });*/
   
+
   const defaultFormData = {
     username: user?.username || 'N/A',
     email: user?.email || 'N/A',
