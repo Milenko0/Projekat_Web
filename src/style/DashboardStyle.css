@@ -1,0 +1,92 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    gap: 20px;
+  }
+  
+  .section {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Profile Section */
+  .profile-form {
+    margin-bottom: 20px;
+  }
+  
+  .profile-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .profile-form p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .profile-form strong {
+    color: #333;
+  }
+  
+  .profile-form img {
+    display: block;
+    margin: 20px auto;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .profile-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .profile-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* NewRide Section */
+  .new-ride {
+    margin-bottom: 20px;
+  }
+  
+  /* PreviousRides Section */
+  .previous-rides {
+    margin-bottom: 20px;
+  }
+  
+  /* Verification Section */
+  .verification {
+    margin-bottom: 20px;
+  }
+  
+  /* NewRides Section */
+  .new-rides {
+    margin-bottom: 20px;
+  }
+  
+  /* MyRides Section */
+  .my-rides {
+    margin-bottom: 20px;
+  }
+  
+  /* AllRides Section */
+  .all-rides {
+    margin-bottom: 20px;
+  }
