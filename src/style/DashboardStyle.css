@@ -16,7 +16,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Profile Section */
   .profile-form {
     margin-bottom: 20px;
   }
@@ -61,32 +60,26 @@
     background-color: #0056b3;
   }
   
-  /* NewRide Section */
   .new-ride {
     margin-bottom: 20px;
   }
   
-  /* PreviousRides Section */
   .previous-rides {
     margin-bottom: 20px;
   }
   
-  /* Verification Section */
   .verification {
     margin-bottom: 20px;
   }
   
-  /* NewRides Section */
   .new-rides {
     margin-bottom: 20px;
   }
   
-  /* MyRides Section */
   .my-rides {
     margin-bottom: 20px;
   }
   
-  /* AllRides Section */
   .all-rides {
     margin-bottom: 20px;
   }
