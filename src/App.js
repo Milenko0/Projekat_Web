@@ -5,6 +5,9 @@ import Profile from './components/Profile';
 import NewRide from './components/NewRide';
 import Verification from './components/Verification';
 import PreviousRides from './components/PreviousRides';
+import NewRides from './components/NewRides';
+import MyRides from './components/MyRides';
+import AllRides from './components/AllRides';
 import 'process/browser';
 
 import {
@@ -27,6 +30,9 @@ function App() {
                 <Route  path='/NewRide' element={<NewRide />} />
                 <Route  path='/Verification' element={<Verification />} />
                 <Route  path='/PreviousRides' element={<PreviousRides />} />
+                <Route  path='/NewRides' element={<NewRides />} />
+                <Route  path='/MyRides' element={<MyRides />} />
+                <Route  path='/AllRides' element={<AllRides />} />
             </Routes>
         </Router>
     </>
