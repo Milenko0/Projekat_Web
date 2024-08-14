@@ -1,9 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+  }
+
 .new-ride-form {
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
+    margin: 100px auto 0 auto;
+    padding: 30px;
+    background-color: #d5d4d4;
     border-radius: 8px;
+    border-color: black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
@@ -61,4 +67,29 @@
     margin-top: 30px;
     font-size: 1.2rem;
     color: #333;
+  }
+
+  .header {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    display: flex; 
+    justify-content: flex-end; 
+    padding: 10px;
+    background-color: black; 
+    border-radius: 0; 
+    z-index: 1000; 
+  }
+  
+  .header a {
+    color: white; 
+    text-decoration: none; 
+    padding: 10px 15px;
+    margin-left: 15px; 
+    transition: background-color 0.3s; 
+  }
+  
+  .header a:hover {
+    background-color: #333; 
   }

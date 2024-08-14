@@ -1,6 +1,6 @@
 .drivers-list {
     width: 80%;
-    margin: 0 auto;
+    margin: 100px auto 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -21,7 +21,7 @@
   }
   
   table thead {
-    background-color: #4CAF50;
+    background-color: #9c9999;
     color: white;
   }
   
@@ -60,4 +60,29 @@
   button:contains('Reject') {
     background-color: #f44336;
     color: white;
+  }
+
+  .header {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    display: flex; 
+    justify-content: flex-end; 
+    padding: 10px;
+    background-color: black; 
+    border-radius: 0; 
+    z-index: 1000; 
+  }
+  
+  .header a {
+    color: white; 
+    text-decoration: none; 
+    padding: 10px 15px;
+    margin-left: 15px; 
+    transition: background-color 0.3s; 
+  }
+  
+  .header a:hover {
+    background-color: #333; 
   }

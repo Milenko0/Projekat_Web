@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/AllRidesStyle.css'; 
 
@@ -53,6 +54,14 @@ export default function AllRides() {
 
   return (
     <div className="all-rides">
+        <div className="header">
+        <header>
+            <Link to="/Profile">Profile</Link>
+            <Link to="/Verification">Verification</Link>
+            <Link to="/AllRides">All Rides</Link>
+            <Link to="/">Log out</Link>
+        </header>
+        </div>
       <h2>All Rides</h2>
       {rides.length > 0 ? (
         <table>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/NewRideStyle.css';
 
@@ -88,6 +89,15 @@ export default function NewRide({ user, onRideCreated }) {
 
   return (
     <div className="new-ride-form">
+        <div className="header">
+            <header>
+                <Link to="/Profile">Profile</Link>
+                <Link to="/NewRide">New Ride</Link>
+                <Link to="/PreviousRides">Previous Rides</Link>
+                <Link to="/">Log out</Link>
+            </header>
+        </div>
+    
       {!rideConfirmed ? (
         <>
           <h2>New Ride</h2>

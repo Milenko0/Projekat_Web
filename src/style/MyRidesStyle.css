@@ -1,6 +1,6 @@
 .my-rides {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 100px auto 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -28,7 +28,7 @@
   }
   
   .my-rides table th {
-    background-color: #4CAF50;
+    background-color:  #9c9999;
     color: white;
   }
   
@@ -44,4 +44,29 @@
     text-align: center;
     font-size: 18px;
     color: #777;
+  }
+
+  .header {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    display: flex; 
+    justify-content: flex-end; 
+    padding: 10px;
+    background-color: black; 
+    border-radius: 0; 
+    z-index: 1000; 
+  }
+  
+  .header a {
+    color: white; 
+    text-decoration: none; 
+    padding: 10px 15px;
+    margin-left: 15px; 
+    transition: background-color 0.3s; 
+  }
+  
+  .header a:hover {
+    background-color: #333; 
   }

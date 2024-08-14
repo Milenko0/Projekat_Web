@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../style/ProfileStyle.css'; // Napravi odgovarajući CSS fajl za stilizaciju
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Profile({ user }) {
@@ -24,7 +24,7 @@ export default function Profile({ user }) {
     lastName: user?.lastName || 'N/A',
     dateOfBirth: user?.dateOfBirth || 'N/A',
     address: user?.address || 'N/A',
-    userType: user?.userType || 'User',
+    userType: user?.userType || 'Administrator',
     profilePicture: null,
   };
   
@@ -89,6 +89,36 @@ export default function Profile({ user }) {
 
   return (
     <div className="profile-form">
+      {formData.userType === "Administrator" && (
+        <div className="header">
+        <header>
+            <Link to="/Profile">Profile</Link>
+            <Link to="/Verification">Verification</Link>
+            <Link to="/AllRides">All Rides</Link>
+            <Link to="/">Log out</Link>
+        </header>
+        </div>
+      )}
+      {formData.userType === "Driver" && (
+        <div className="header">
+        <header>
+            <Link to="/Profile">Profile</Link>
+            <Link to="/NewRides">New Rides</Link>
+            <Link to="/MyRides">My Rides</Link>
+            <Link to="/">Log out</Link>
+        </header>
+        </div>
+      )}
+      {formData.userType === "User" && (
+        <div className="header">
+        <header>
+            <Link to="/Profile">Profile</Link>
+            <Link to="/NewRide">New Ride</Link>
+            <Link to="/PreviousRides">Previous Rides</Link>
+            <Link to="/">Log out</Link>
+        </header>
+        </div>
+      )}
       <h2>{isEditing ? 'Edit Profile' : 'Profile Details'}</h2>
 
       {!isEditing ? (

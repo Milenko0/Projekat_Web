@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/MyRidesStyle.css'; 
 
@@ -49,6 +50,14 @@ export default function MyRides() {
 
   return (
     <div className="my-rides">
+        <div className="header">
+        <header>
+            <Link to="/Profile">Profile</Link>
+            <Link to="/NewRides">New Rides</Link>
+            <Link to="/MyRides">My Rides</Link>
+            <Link to="/">Log out</Link>
+        </header>
+        </div>
       <h2>My Completed Rides</h2>
       {rides.length > 0 ? (
         <table>

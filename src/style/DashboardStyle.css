@@ -1,8 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .dashboard {
+  padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding-top: 60px;
     background-color: #f4f4f4;
     gap: 20px;
   }
@@ -82,4 +88,29 @@
   
   .all-rides {
     margin-bottom: 20px;
+  }
+
+  .dashboard-nav {
+    position: fixed; /* Fiksira navigaciju na vrhu */
+    top: 0; /* Postavlja je na vrh stranice */
+    left: 0; /* Poravnava levo */
+    right: 0; /* Poravnava desno */
+    display: flex; /* Koristi flexbox za raspored */
+    justify-content: flex-end; /* Poravnava linkove u desnom uglu */
+    padding: 10px;
+    background-color: black; /* Crna pozadina navigacije */
+    border-radius: 0; /* Bez zaobljenih uglova */
+    z-index: 1000; /* Postavlja visoki z-index da bi bio iznad ostalog sadržaja */
+  }
+  
+  .dashboard-nav a {
+    color: white; /* Boja teksta linkova */
+    text-decoration: none; /* Uklanja podvučenost */
+    padding: 10px 15px; /* Unutrašnji razmak oko linkova */
+    margin-left: 15px; /* Razmak između linkova */
+    transition: background-color 0.3s; /* Animacija za promenu boje */
+  }
+  
+  .dashboard-nav a:hover {
+    background-color: #333; /* Tamnija boja pri hover-u */
   }

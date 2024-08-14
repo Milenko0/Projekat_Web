@@ -33,6 +33,7 @@ function App() {
                 <Route  path='/NewRides' element={<NewRides />} />
                 <Route  path='/MyRides' element={<MyRides />} />
                 <Route  path='/AllRides' element={<AllRides />} />
+                <Route  path='/Logout' element={<Login />} />
             </Routes>
         </Router>
     </>

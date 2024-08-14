@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style/PreviousRidesStyle.css'; 
 
@@ -51,6 +52,14 @@ export default function PreviousRides() {
 
   return (
     <div className="previous-rides">
+       <div className="header">
+            <header>
+                <Link to="/Profile">Profile</Link>
+                <Link to="/NewRide">New Ride</Link>
+                <Link to="/PreviousRides">Previous Rides</Link>
+                <Link to="/">Log out</Link>
+            </header>
+        </div> 
       <h2>Previous Rides</h2>
       {rides.length > 0 ? (
         <table>

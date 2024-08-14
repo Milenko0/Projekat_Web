@@ -3,8 +3,10 @@
   }
   
   .previous-rides h2 {
+    font-size: 35px;
     text-align: center;
     margin-bottom: 20px;
+    margin: 100px auto 0 auto;
   }
   
   .previous-rides table {
@@ -34,4 +36,29 @@
   .previous-rides p {
     text-align: center;
     font-size: 1.2em;
+  }
+
+  .header {
+    position: fixed; /* Fiksira navigaciju na vrhu */
+    top: 0; /* Postavlja je na vrh stranice */
+    left: 0; /* Poravnava levo */
+    right: 0; /* Poravnava desno */
+    display: flex; /* Koristi flexbox za raspored */
+    justify-content: flex-end; /* Poravnava linkove u desnom uglu */
+    padding: 10px;
+    background-color: black; /* Crna pozadina navigacije */
+    border-radius: 0; /* Bez zaobljenih uglova */
+    z-index: 1000; /* Postavlja visoki z-index da bi bio iznad ostalog sadržaja */
+  }
+  
+  .header a {
+    color: white; /* Boja teksta linkova */
+    text-decoration: none; /* Uklanja podvučenost */
+    padding: 10px 15px; /* Unutrašnji razmak oko linkova */
+    margin-left: 15px; /* Razmak između linkova */
+    transition: background-color 0.3s; /* Animacija za promenu boje */
+  }
+  
+  .header a:hover {
+    background-color: #333; /* Tamnija boja pri hover-u */
   }
