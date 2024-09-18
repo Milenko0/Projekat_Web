@@ -1,233 +1,382 @@
-import React, { useState } from 'react';
-import '../style/ProfileStyle.css'; // Napravi odgovarajući CSS fajl za stilizaciju
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import ProfileService from '../services/EditProfileService';
+//import axios from "axios";
+import '../style/ProfileStyle.css';
 
-export default function Profile({ user }) {
-  const [isEditing, setIsEditing] = useState(false);
-  /*const [formData, setFormData] = useState({
-    username: user.username || '',
-    email: user.email || '',
-    firstName: user.firstName || '',
-    lastName: user.lastName || '',
-    dateOfBirth: user.dateOfBirth || '',
-    address: user.address || '',
-    userType: user.userType || '',
-    profilePicture: null,
-  });*/
-  
+const Profile = () => {
+    const [isEditing, setIsEditing] = useState(false);
+    const redirection = useNavigate();
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordCheck, setPasswordCheck] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [address, setAddress] = useState("");
+    const [userType, setUserType] = useState("");
+    const [state, setState] = useState("None");
+    const [image, setImage] = useState(null); // Changed to null to represent absence of file
+    const [imagePreview, setImagePreview] = useState(""); // To store image URL preview
 
-  const defaultFormData = {
-    username: user?.username || 'N/A',
-    email: user?.email || 'N/A',
-    firstName: user?.firstName || 'N/A',
-    lastName: user?.lastName || 'N/A',
-    dateOfBirth: user?.dateOfBirth || 'N/A',
-    address: user?.address || 'N/A',
-    userType: user?.userType || 'Administrator',
-    profilePicture: null,
-  };
-  
-  const [formData, setFormData] = useState(defaultFormData);
-  const navigate = useNavigate();
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleImageUrlChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFormData({
-      ...formData,
-      profilePicture: selectedFile || null,
-    });
-  };
-
-  const handleSaveClick = async (e) => {
-    e.preventDefault();
-
-    try {
-      const form = new FormData();
-      form.append('username', formData.username);
-      form.append('email', formData.email);
-      form.append('firstName', formData.firstName);
-      form.append('lastName', formData.lastName);
-      form.append('dateOfBirth', formData.dateOfBirth);
-      form.append('address', formData.address);
-      form.append('userType', formData.userType);
-      if (formData.profilePicture) {
-        form.append('profilePicture', formData.profilePicture);
+     // Funkcija za zaštitu stranice
+     useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+          redirection('/');
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      // Pretpostavljam da imaš API endpoint za izmenu profila
-      const apiEndpoint = process.env.REACT_APP_PROFILE_API_URL;
-      await axios.put(`${apiEndpoint}/${user.id}`, form, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+    // Fetching user data from the server
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await ProfileService.getProfileData();
+                let typeOfUser = response.userType === 'user' ? 'Korisnik' : response.userType === 'driver' ? 'Vozač' : response.userType;
+                
+                setUserName(response.userName);
+                setEmail(response.email);
+                setPassword(response.password);
+                setPasswordCheck(response.password);
+                setFirstName(response.firstName);
+                setLastName(response.lastName);
+                setDateOfBirth(response.dateOfBirth);
+                setAddress(response.address);
+                setUserType(typeOfUser);
+                setState(response.state);
+                
+                if (response.image) {
+                    setImagePreview(response.image); // Set image preview if available
+                }
+            } catch (error) {
+                console.error('Error occurred: ', error);
+            }
+        };
+        fetchData();
+    }, []);
 
-      alert("Profile updated successfully!");
-      navigate("/dashboard"); // Redirekcija na dashboard nakon uspešnog ažuriranja
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      alert("An error occurred while updating the profile. Please try again.");
+   // Validating fields and submitting profile data
+const modifyProfile = async () => {
+    const year = new Date(dateOfBirth);
+    const currentYear = new Date().getFullYear();
+    const fullYear = year.getFullYear();
+
+    if (userName.length === 0) {
+        alert("Username is required!");
+    } else if (!/[a-zA-Z0-9]/.test(userName)) {
+        alert("Username must contain letters or numbers!");
+    } else if (email.length === 0 || !/^[a-zA-Z0-9@.]*$/.test(email) || !email.includes('@') || !email.includes('.')) {
+        alert("Valid email is required!");
+    } else if (password.length === 0 || password.length < 6) {
+        alert("Password is required and must be at least 6 characters!");
+    } else if (passwordCheck.length === 0 || password.length < 6) {
+        alert("Password confirmation is required!");
+    } else if (passwordCheck !== password) {
+        alert("Password and confirmation do not match!");
+    } else if (firstName.length === 0) {
+        alert("First name is required!");
+    } else if (!/^[a-zA-Z\u00C0-\u017F]*$/.test(firstName)) {
+        alert("First name must contain only letters!");
+    } else if (lastName.length === 0) {
+        alert("Last name is required!");
+    } else if (!/^[a-zA-Z\u00C0-\u017F]*$/.test(lastName)) {
+        alert("Last name must contain only letters!");
+    } else if (dateOfBirth.length === 0) {
+        alert("Date of birth is required!");
+    } else if (fullYear >= currentYear) {
+        alert("Invalid date of birth!");
+    } else if (address.length === 0) {
+        alert("Address is required!");
+    } else if (!/^[a-zA-Z0-9\s\u00C0-\u017F]+$/.test(address)) {
+        alert("Address must contain only letters and numbers!");
+    } else {
+        try {
+            const response = await ProfileService.editProfile({
+                userName,
+                email,
+                password,
+                passwordCheck,
+                firstName,
+                lastName,
+                dateOfBirth,
+                address,
+                userType,
+                image,
+                state
+            });
+            if (response.message === '1') {
+                //alert('Profile updated successfully!');
+                setIsEditing(false);
+            } else {
+                alert('Error processing data!');
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
     }
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancelClick = () => {
-    setIsEditing(false);
-  };
-
-  return (
-    <div className="profile-form">
-      {formData.userType === "Administrator" && (
-        <div className="header">
-        <header>
-            <Link to="/Profile">Profile</Link>
-            <Link to="/Verification">Verification</Link>
-            <Link to="/AllRides">All Rides</Link>
-            <Link to="/">Log out</Link>
-        </header>
-        </div>
-      )}
-      {formData.userType === "Driver" && (
-        <div className="header">
-        <header>
-            <Link to="/Profile">Profile</Link>
-            <Link to="/NewRides">New Rides</Link>
-            <Link to="/MyRides">My Rides</Link>
-            <Link to="/">Log out</Link>
-        </header>
-        </div>
-      )}
-      {formData.userType === "User" && (
-        <div className="header">
-        <header>
-            <Link to="/Profile">Profile</Link>
-            <Link to="/NewRide">New Ride</Link>
-            <Link to="/PreviousRides">Previous Rides</Link>
-            <Link to="/">Log out</Link>
-        </header>
-        </div>
-      )}
-      <h2>{isEditing ? 'Edit Profile' : 'Profile Details'}</h2>
-
-      {!isEditing ? (
-        <div>
-          <p><strong>Username:</strong> {formData.username}</p>
-          <p><strong>Email:</strong> {formData.email}</p>
-          <p><strong>First Name:</strong> {formData.firstName}</p>
-          <p><strong>Last Name:</strong> {formData.lastName}</p>
-          <p><strong>Date of Birth:</strong> {formData.dateOfBirth}</p>
-          <p><strong>Address:</strong> {formData.address}</p>
-          <p><strong>User Type:</strong> {formData.userType}</p>
-          {formData.profilePicture && (
-            <div>
-              <img 
-                src={URL.createObjectURL(formData.profilePicture)} 
-                alt="Profile" 
-                width="100" 
-                height="100"
-              />
-            </div>
-          )}
-          <button onClick={handleEditClick}>Edit Profile</button>
-        </div>
-      ) : (
-        <form onSubmit={handleSaveClick} method='post'>
-          <div>
-            <input 
-              type="text" 
-              name="username" 
-              placeholder='Username'
-              value={formData.username} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <input 
-              type="email" 
-              name="email" 
-              placeholder='Email'
-              value={formData.email} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <input 
-              type="text" 
-              name="firstName" 
-              placeholder='First Name'
-              value={formData.firstName} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <input 
-              type="text" 
-              name="lastName" 
-              placeholder='Last Name'
-              value={formData.lastName} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <input 
-              type="date" 
-              name="dateOfBirth" 
-              placeholder='Date of Birth'
-              value={formData.dateOfBirth} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <input 
-              type="text" 
-              name="address" 
-              placeholder='Address'
-              value={formData.address} 
-              onChange={handleInputChange} 
-              required 
-            />
-          </div>
-          <div>
-            <select 
-              name="userType" 
-              value={formData.userType} 
-              onChange={handleInputChange} 
-              required
-              disabled // Ako želiš da korisnik ne može promeniti svoju ulogu
-            >
-              <option value="User">User</option>
-              <option value="Admin">Administrator</option>
-              <option value="Driver">Driver</option>
-            </select>
-          </div>
-          <div>
-            <input 
-              type="file" 
-              name="profilePicture" 
-              onChange={handleImageUrlChange} 
-            />
-          </div>
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={handleCancelClick}>Cancel</button>
-        </form>
-      )}
-    </div>
-  );
 }
+
+    // Dynamically displaying selected image
+    const previewImage = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              console.log("Image URL:", reader.result);
+                setImagePreview(reader.result);
+                setImage(file); // Store the File object in state
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+  
+    const handleCancelClick = () => {
+        setIsEditing(false);
+    };
+/*
+    const handleSaveClick = async () => {
+        try {
+            const form = new FormData();
+            form.append('username', userName);
+            form.append('email', email);
+            form.append('firstName', firstName);
+            form.append('lastName', lastName);
+            form.append('dateOfBirth', dateOfBirth);
+            form.append('address', address);
+            form.append('userType', userType);
+            if (image) {
+                form.append('profilePicture', image);
+            }
+
+            const apiEndpoint = process.env.REACT_APP_PROFILE_API_URL;
+            await axios.put(`${apiEndpoint}/${userName}`, form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            alert("Profile updated successfully!");
+            redirection("/dashboard"); // Redirect to dashboard after successful update
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            alert("An error occurred while updating the profile. Please try again.");
+        }
+    };*/
+
+    return (
+      <div className="profile-form">
+        {userType === "admin" && (
+          <div className="header">
+            <header>
+              <Link to="/profile">Profile</Link>
+              <Link to="/verification">Verification</Link>
+              <Link to="/all-trips">All Trips</Link>
+              <Link to="/ratings">Ratings</Link>
+              <Link to="/logout">Log out</Link>
+            </header>
+          </div>
+        )}
+        {userType === "Vozač" && (
+          <div className="header">
+            <header>
+              <Link to="/profile">Profile</Link>
+              <Link to="/new-trips">New Trips</Link>
+              <Link to="/my-trips">My Trips</Link>
+              <Link to="/logout">Log out</Link>
+            </header>
+          </div>
+        )}
+        {userType === "Korisnik" && (
+          <div className="header">
+            <header>
+              <Link to="/profile">Profile</Link>
+              <Link to="/new-trip">New Trip</Link>
+              <Link to="/previous-trips">Previous Trips</Link>
+              <Link to="/logout">Log out</Link>
+            </header>
+          </div>
+        )}
+        <h2>{isEditing ? 'Edit Profile' : 'Profile Details'}</h2>
+    
+        {!isEditing ? (
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td><strong>Username:</strong></td>
+                  <td>{userName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Email:</strong></td>
+                  <td>{email}</td>
+                </tr>
+                <tr>
+                  <td><strong>First Name:</strong></td>
+                  <td>{firstName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Last Name:</strong></td>
+                  <td>{lastName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Date of Birth:</strong></td>
+                  <td>{dateOfBirth}</td>
+                </tr>
+                <tr>
+                  <td><strong>Address:</strong></td>
+                  <td>{address}</td>
+                </tr>
+                <tr>
+                  <td><strong>User Type:</strong></td>
+                  <td>{userType}</td>
+                </tr>
+                {imagePreview && (
+                  <tr>
+                    <td><strong>Profile picture:</strong></td>
+                    <td>
+                      <img 
+                        src={imagePreview} 
+                        alt="Profile" 
+                        width="100" 
+                        height="100"
+                      />
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            <button className="edit-profile" onClick={handleEditClick}>Edit Profile</button>
+          </div>
+        ) : (
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input 
+                      type="text" 
+                      id="userName" 
+                      name="userName" 
+                      placeholder='Username'
+                      value={userName} 
+                      onChange={(e) => setUserName(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      placeholder='Email'
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="text" 
+                      id="firstName" 
+                      name="firstName" 
+                      placeholder='First Name'
+                      value={firstName} 
+                      onChange={(e) => setFirstName(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="text" 
+                      id="lastName" 
+                      name="lastName" 
+                      placeholder='Last Name'
+                      value={lastName} 
+                      onChange={(e) => setLastName(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="date" 
+                      id="dateOfBirth" 
+                      name="dateOfBirth" 
+                      placeholder='Date of Birth'
+                      value={dateOfBirth} 
+                      onChange={(e) => setDateOfBirth(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="text" 
+                      id="address" 
+                      name="address" 
+                      placeholder='Address'
+                      value={address} 
+                      onChange={(e) => setAddress(e.target.value)} 
+                      required 
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <select 
+                      id="userType" 
+                      name="userType" 
+                      value={userType}  
+                      disabled // If you want to disable user type changes
+                    >
+                      <option value="user">User</option>
+                      <option value="admin">admin</option>
+                      <option value="driver">Driver</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                      type="file" 
+                      id="imageInput" 
+                      name="imageInput"
+                      onChange={previewImage}
+                    />
+                    {imagePreview && (
+                                        <div>
+                                            <img 
+                                                src={imagePreview} 
+                                                alt="Preview" 
+                                                width="100" 
+                                                height="100"
+                                            />
+                                        </div>
+                                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button className="save-changes" type="button"  onClick={modifyProfile}>Save Changes</button>
+            <button className="cancel" type="button" onClick={handleCancelClick}>Cancel</button>
+          </div>
+        )}
+      </div>
+    );
+};
+
+export default Profile;

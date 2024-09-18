@@ -1,4 +1,4 @@
-.all-rides {
+.all-trips {
     max-width: 1000px;
     margin: 100px auto 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .all-rides h2 {
+  .all-trips h2 {
     text-align: center;
     margin: auto;
     margin-bottom: 20px;
@@ -15,38 +15,38 @@
     color: #333;
   }
   
-  .all-rides table {
+  .all-trips table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .all-rides table th,
-  .all-rides table td {
+  .all-trips table th,
+  .all-trips table td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
   
-  .all-rides table th {
+  .all-trips table th {
     background-color: #9c9999;
     color: white;
   }
   
-  .all-rides table tr:hover {
+  .all-trips table tr:hover {
     background-color: #f1f1f1;
   }
   
-  .all-rides table td {
+  .all-trips table td {
     color: #555;
   }
   
-  .all-rides p {
+  .all-trips p {
     text-align: center;
     font-size: 18px;
     color: #777;
   }
   
-  .all-rides table td:last-child {
+  .all-trips table td:last-child {
     font-weight: bold;
   }
 

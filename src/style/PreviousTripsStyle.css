@@ -1,39 +1,39 @@
-.previous-rides {
+.previous-trips {
     margin: 20px;
   }
   
-  .previous-rides h2 {
-    font-size: 35px;
+  .previous-trips h2 {
+    font-size: 1.5rem;
     text-align: center;
     margin-bottom: 20px;
     margin: 100px auto 0 auto;
   }
   
-  .previous-rides table {
+  .previous-trips table {
     width: 100%;
     border-collapse: collapse;
     margin: auto;
   }
   
-  .previous-rides th, .previous-rides td {
+  .previous-trips th, .previous-trips td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
   }
   
-  .previous-rides th {
+  .previous-trips th {
     background-color: #9c9999;
   }
   
-  .previous-rides tr:nth-child(even) {
+  .previous-trips tr:nth-child(even) {
     background-color: #f9f9f9;
   }
   
-  .previous-rides tr:hover {
+  .previous-trips tr:hover {
     background-color: #f1f1f1;
   }
   
-  .previous-rides p {
+  .previous-trips p {
     text-align: center;
     font-size: 1.2em;
   }

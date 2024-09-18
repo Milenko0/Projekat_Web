@@ -1,0 +1,90 @@
+/* Stilizacija modala */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Poluprovidna pozadina */
+    z-index: 1000;
+    overflow: auto;
+}
+
+/* Stilizacija sadržaja modala */
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Stilizacija zaglavlja modala */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    position: relative; /* Dodajte ovo kako biste mogli da pozicionirate dugme za zatvaranje unutar zaglavlja */
+}
+
+/* Stilizacija dugmeta za zatvaranje modala */
+.close-button {
+    background: #dc3545; /* Crvena boja za dugme za zatvaranje */
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute; /* Pozicionirajte dugme apsolutno u odnosu na zaglavlje */
+    top: 10px; /* Razmak od vrha */
+    right: 10px; /* Razmak od desne ivice */
+}
+
+/* Stilizacija tela modala */
+.modal-body {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Stilizacija donjeg dela modala */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Stilizacija dugmadi */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button.confirm {
+    background-color: #28a745; /* Zelena boja za potvrdu */
+    color: white;
+}
+
+.button.confirm:hover {
+    background-color: #218838; /* Tamnija zelena boja na hover */
+}
+
+.button.cancel {
+    background-color: #dc3545; /* Crvena boja za odustajanje */
+    color: white;
+    margin-left: 10px; /* Razmak između dugmadi */
+}
+
+.button.cancel:hover {
+    background-color: #c82333; /* Tamnija crvena boja na hover */
+}

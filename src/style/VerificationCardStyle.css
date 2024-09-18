@@ -1,0 +1,69 @@
+/* Container styling */
+.verification-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin: 20px auto; /* Center the card on the page */
+}
+
+/* List group styles */
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 16px;
+    color: #333;
+}
+
+.list-group-item:first-child {
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Image styling */
+.verification-card .image img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
+
+/* Button styles */
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+button.accept:hover {
+    background-color: #45a049;
+}
+
+button.reject:hover {
+    background-color: #e63927;
+}
+
+/* Flexbox layout for buttons */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}

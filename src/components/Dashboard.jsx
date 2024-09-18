@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../style/DashboardStyle.css';
 import Profile from './Profile';
-import NewRide from './NewRide';
-import PreviousRides from './PreviousRides';
+/*import NewRide from './NewTrip';
+import PreviousRides from './PreviousTrips';
 import Verification from './Verification';
-import NewRides from './NewRides';
-import MyRides from './MyRides';
-import AllRides from './AllRides';
+import NewRides from './NewTrips';
+import MyRides from './MyTrips';
+import AllRides from './AllTrips';*/
 
 
 export default function Dashboard() {

@@ -1,94 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import LoginService from '../services//LoginService';
 import '../style/LoginStyle.css';
-import { useState } from 'react';
-import { AuthenticateUser } from '../services/LoginService';
-import {useNavigate} from "react-router-dom";
 
-export default function Login() {
-  const [userEmail, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(true);
-  const [userPassword, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(true);
-  const loginApiUrl = process.env.REACT_APP_LOGIN;
-  const navigate = useNavigate();
+const Login = () => {
+    const redirection = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  const handleLoginClick = async (e) => {
-    e.preventDefault();
-  
-    if (emailError) {
-        return alert("Unesite validan email!");
-      }
-      if (passwordError) {
-        return alert("Lozinka treba da ima 8 znakova, jedno veliko slovo, jedan broj i jedan specijalni znak");
-      }
-  
-      try {
-        const responseOfLogin = await AuthenticateUser(userEmail, userPassword, loginApiUrl);
-        console.log("Response from login user", responseOfLogin);
-  
-        if (responseOfLogin.message === "Login successful") {
-          localStorage.setItem('token', responseOfLogin.token);
-          navigate("/Dashboard", { state: { user: responseOfLogin.user } });
+    // Function for validating fields and sending data to the server for login
+    const userLoggingin = async () => {
+        if (email.length === 0 || !/^[a-zA-Z0-9@.]*$/.test(email) || !email.includes('@') || !email.includes('.')) {
+            alert("Email must be filled out correctly!");
         }
-      } catch (error) {
-        console.error("Greška pri prijavljivanju:", error);
-        alert('Netacan email ili lozinka!');
-      }
-  };
-
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-    // Proveri validnost lozinke
-    const isValidPassword = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/.test(value);
-    // Postavi grešku na osnovu provere
-    if (value.trim() === '' || !isValidPassword) {
-        setPasswordError(true);
-    } else {
-        setPasswordError(false);
+        else if (password.length === 0 || password.length < 6) {
+            alert("Password must be filled out and be at least 6 characters long!");
+        }
+        else {
+            try {
+                const response = await LoginService.loginUser({ email, password });
+                if (response.message === '3') {
+                    //alert('Successfully logged in as admin!');
+                    const token = response.token;
+                    localStorage.setItem('token', token);
+                    redirection('/dashboard');
+                }
+                else if (response.message === '2') {
+                    //alert('Successfully logged in as driver!');
+                    const token = response.token;
+                    localStorage.setItem('token', token);
+                    redirection('/dashboard');
+                }
+                else if (response.message === '1') {
+                    //alert('Successfully logged in as user!');
+                    const token = response.token;
+                    localStorage.setItem('token', token);
+                    redirection('/dashboard');
+                }
+                else if (response.message === '-1') {
+                    alert('Incorrect password!');
+                }
+                else if (response.message === '-2') {
+                    alert('You are not registered!');
+                    redirection('/registration');
+                }
+                else {
+                    alert('An error occurred!');
+                }
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
+        }
     }
- };
 
- const handleEmailChange = (e) => {
-    const value = e.target.value;
-    setEmail(value);
-    // Proveri validnost email adrese
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    // Postavi grešku na osnovu provere
-    setEmailError(value.trim() === '' || !isValidEmail);
-};
-
-
-  return (
-    <div className='body'>
+    return (
+      <div className='body'>
         <h1>TAXI APLIKACIJA</h1>
         <div className='form'>
           <h2>Login</h2>
-          <form onSubmit={handleLoginClick}>
-              <input
-                type="email" 
-                placeholder="Email" 
-                value={userEmail} 
-                onChange={handleEmailChange} 
-                required 
-              /> <br/>
-              <input 
-                type="password" 
-                placeholder="Password" 
-                value={userPassword} 
-                onChange={handlePasswordChange} 
-                title='Lozinka treba da sadrži 8 znakova, jedno veliko slovo, jedan broj i jedan specijalni znak' 
-                required 
-              />
-            <button type='submit'>Login</button>
-          </form><br/><br/>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    id="email"
+                    type="email" 
+                    placeholder="Email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input 
+                    id="password"
+                    type="password" 
+                    placeholder="Password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required 
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <button type='button' onClick={userLoggingin}>Login</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <p className='p'>
             Don't have an account? 
-            <a href="/Register">Register</a>
+            <a href="/Registration">Registration</a>
           </p>
-          </div>
-    </div>
-  );
+        </div>
+      </div>
+    );    
 }
 
-
+export default Login;

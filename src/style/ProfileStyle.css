@@ -1,94 +1,111 @@
 .profile-form {
-    max-width: 600px;
-    margin: 100px auto 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-  }
-  
-  .profile-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .profile-form p {
-    margin: 10px 0;
-    font-size: 16px;
-  }
-  
-  .profile-form strong {
-    color: #555;
-  }
-  
-  .profile-form input[type="text"],
-  .profile-form input[type="email"],
-  .profile-form input[type="date"],
-  .profile-form select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .profile-form input[type="file"] {
-    margin: 10px 0;
-  }
-  
-  .profile-form button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-    transition: background-color 0.3s;
-  }
-  
-  .profile-form button:hover {
-    background-color: #0056b3;
-  }
-  
-  .profile-form button[type="button"] {
-    background-color: #6c757d;
-  }
-  
-  .profile-form button[type="button"]:hover {
-    background-color: #5a6268;
-  }
-  
-  .profile-form img {
-    margin-top: 10px;
-    border-radius: 50%;
-  }
+  max-width: 600px;
+  margin: 100px auto 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
 
-  .header {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    display: flex; 
-    justify-content: flex-end; 
-    padding: 10px;
-    background-color: black; 
-    border-radius: 0; 
-    z-index: 1000; 
-  }
-  
-  .header a {
-    color: white; 
-    text-decoration: none; 
-    padding: 10px 15px;
-    margin-left: 15px; 
-    transition: background-color 0.3s; 
-  }
-  
-  .header a:hover {
-    background-color: #333; 
-  }
+.profile-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.profile-form p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.profile-form strong {
+  color: #555;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="date"],
+.profile-form select,
+.profile-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.profile-form input[type="file"] {
+  margin-top: 10px;
+}
+
+/* Osnovna stilizacija dugmadi */
+.profile-form button {
+  background-color: #6c757d; /* Osnovna siva boja */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.profile-form button.edit-profile {
+  background-color: #6c757d; /* Siva boja */
+}
+
+.profile-form button.edit-profile:hover {
+  background-color: #28a745; /* Zelena boja kada se pređe mišem */
+}
+
+/* Dugme "Save Changes" */
+.profile-form button.save-changes {
+  background-color: #6c757d; /* Siva boja */
+}
+
+.profile-form button.save-changes:hover {
+  background-color: #28a745; /* Zelena boja kada se pređe mišem */
+}
+
+/* Dugme "Cancel" */
+.profile-form button.cancel {
+  background-color: #6c757d; /* Siva boja */
+}
+
+.profile-form button.cancel:hover {
+  background-color: #dc3545; /* Crvena boja kada se pređe mišem */
+}
+
+.profile-form img {
+  margin-top: 10px;
+  border-radius: 50%;
+  max-width: 100px; /* Ensure image doesn't exceed width */
+  height: auto;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: black;
+  z-index: 1000;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-left: 15px;
+  transition: background-color 0.3s;
+}
+
+.header a:hover {
+  background-color: #333;
+}

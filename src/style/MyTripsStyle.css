@@ -1,43 +1,49 @@
-.new-rides {
+.my-trips {
+    max-width: 800px;
     margin: 100px auto 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .new-rides h2 {
-    margin-bottom: 20px;
+  .my-trips h2 {
     text-align: center;
+    margin-bottom: 20px;
     font-size: 24px;
+    color: #333;
   }
   
-  .new-rides table {
+  .my-trips table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
   }
   
-  .new-rides th, .new-rides td {
-    padding: 12px;
+  .my-trips table th,
+  .my-trips table td {
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
   
-  .new-rides th {
-    background-color: #9c9999;
-  }
-  
-  .new-rides button {
-    padding: 8px 12px;
-    background-color: #4CAF50;
+  .my-trips table th {
+    background-color:  #9c9999;
     color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
   }
   
-  .new-rides button:hover {
-    background-color: #45a049;
+  .my-trips table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .my-trips table td {
+    color: #555;
+  }
+  
+  .my-trips p {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
   }
 
   .header {
